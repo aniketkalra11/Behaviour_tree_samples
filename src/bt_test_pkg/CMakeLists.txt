@@ -11,7 +11,15 @@ find_package(rclcpp REQUIRED)
 find_package(behaviortree_ros2 REQUIRED)
 find_package(sample_bt_msgs REQUIRED)
 
-add_library(fibonci_bt_client )
+# src/bt_test_pkg/src/actions/fibonaci_bt_client.cpp
+include_directories(include)
+add_library(fibonci_bt_client SHARED src/actions/fibonaci_bt_client.cpp)
+ament_target_dependencies(fibonci_bt_client rclcpp behaviortree_ros2 sample_bt_msgs)
+
+install(TARGETS fibonci_bt_client
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
